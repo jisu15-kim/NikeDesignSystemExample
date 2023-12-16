@@ -13,12 +13,20 @@ import DesignSystem
 struct ContentView: View {
     var body: some View {
         VStack {
-            Text("오오")
-                .font(.bold.textLg)
-            Text("텍스트를 살펴보세요")
-                .font(.regular.displayLg)
-            CTAButton(title: "버튼이에요") {
-                print("버튼눌림")
+            VStack {
+                Button {
+                    print("아웃라인 버튼")
+                } label: {
+                    Text("아웃라인 버튼")
+                }
+                .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
+                
+                Button(action: {
+                    print("버튼 클릭")
+                }, label: {
+                    Text("솔리드 버튼")
+                })
+                .buttonStyle(CTASolidButtonStyle(mode: .dark, width: 150))
             }
         }
     }

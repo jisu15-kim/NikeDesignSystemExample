@@ -8,17 +8,12 @@
 
 import SwiftUI
 
-enum ComponentMode {
+public enum ComponentMode {
     case light
     case dark
 }
 
-enum CTAButtonType {
-    case solid
-    case outline
-}
-
-enum CTASolidButtonStyleConfig {
+fileprivate enum CTASolidButtonStyleConfig {
     case normal(ComponentMode)
     case pressed(ComponentMode)
     case disabled(ComponentMode)
@@ -40,11 +35,16 @@ enum CTASolidButtonStyleConfig {
     }
 }
 
-struct CTASolidButtonStyle: ButtonStyle {
+public struct CTASolidButtonStyle: ButtonStyle {
     var mode: ComponentMode = .dark
     var width: CGFloat? = nil
     
-    func makeBody(configuration: Configuration) -> some View {
+    public init(mode: ComponentMode, width: CGFloat? = nil) {
+        self.mode = mode
+        self.width = width
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
         let state: CTASolidButtonStyleConfig = configuration.isPressed ? .pressed(mode) : .normal(mode)
         configuration.label
             .frame(width: width)
@@ -56,7 +56,7 @@ struct CTASolidButtonStyle: ButtonStyle {
     }
 }
 
-enum CTAOutlineButtonStyleConfig {
+fileprivate enum CTAOutlineButtonStyleConfig {
     case normal(ComponentMode)
     case pressed(ComponentMode)
     case disabled(ComponentMode)
@@ -78,11 +78,16 @@ enum CTAOutlineButtonStyleConfig {
     }
 }
 
-struct CTAOutlineButtonStyle: ButtonStyle {
+public struct CTAOutlineButtonStyle: ButtonStyle {
     var mode: ComponentMode = .dark
     var width: CGFloat? = nil
     
-    func makeBody(configuration: Configuration) -> some View {
+    public init(mode: ComponentMode, width: CGFloat? = nil) {
+        self.mode = mode
+        self.width = width
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
         let state: CTAOutlineButtonStyleConfig = configuration.isPressed ? .pressed(mode) : .normal(mode)
         configuration.label
             .frame(width: width)
@@ -123,14 +128,26 @@ public struct CTAButton: View {
         } label: {
             Text(title)
         }
+        
     }
 }
 
 struct CTAButton_Previews: PreviewProvider {
     static var previews: some View {
-        CTAButton(title: "버튼이요", width: 150) {
-            print("클릭이요")
+        VStack {
+            Button(action: {
+                print("버튼 클릭")
+            }, label: {
+                Text("아웃라인 버튼")
+            })
+            .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
+            
+            Button(action: {
+                print("버튼 클릭")
+            }, label: {
+                Text("솔리드 버튼")
+            })
+            .buttonStyle(CTASolidButtonStyle(mode: .dark, width: 150))
         }
-        .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
     }
 }
