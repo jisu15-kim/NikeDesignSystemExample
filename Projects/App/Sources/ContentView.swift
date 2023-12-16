@@ -11,23 +11,37 @@ import DesignSystem
 
 
 struct ContentView: View {
+    
+    @State var inputText: String = "" {
+        didSet {
+            print(inputText)
+        }
+    }
+    
     var body: some View {
-        VStack {
-            VStack {
-                Button {
-                    print("아웃라인 버튼")
-                } label: {
-                    Text("아웃라인 버튼")
-                }
-                .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
-                
-                Button(action: {
-                    print("버튼 클릭")
-                }, label: {
-                    Text("솔리드 버튼")
-                })
-                .buttonStyle(CTASolidButtonStyle(mode: .dark, width: 150))
+        
+        
+        VStack(spacing: 24) {
+            Button {
+                print("아웃라인 버튼")
+            } label: {
+                Text("아웃라인 버튼")
             }
+            .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
+            
+            Button(action: {
+                print("버튼 클릭")
+            }, label: {
+                Text("솔리드 버튼")
+            })
+            .buttonStyle(CTASolidButtonStyle(mode: .dark, width: 150))
+            
+            StandAlongInputView(
+                textInput: $inputText,
+                placeHolder: "플레이스홀더",
+                errorMeeage: "에러에요"
+            )
+            .frame(width: 250, height: 60)
         }
     }
 }
