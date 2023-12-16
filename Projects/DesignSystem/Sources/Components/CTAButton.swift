@@ -8,59 +8,129 @@
 
 import SwiftUI
 
+enum ComponentMode {
+    case light
+    case dark
+}
+
+enum CTAButtonType {
+    case solid
+    case outline
+}
+
+enum CTASolidButtonStyleConfig {
+    case normal(ComponentMode)
+    case pressed(ComponentMode)
+    case disabled(ComponentMode)
+    
+    var backgroundColor: Color {
+        switch self {
+        case .normal(let mode), .pressed(let mode), .disabled(let mode):
+            return mode == .dark ? .black : .white
+        }
+    }
+    
+    var foregroundColor: Color {
+        switch self {
+        case .normal(let mode):
+            return mode == .dark ? .white : .black
+        case .pressed(_), .disabled(_):
+            return DesignSystem.gray400
+        }
+    }
+}
+
+struct CTASolidButtonStyle: ButtonStyle {
+    var mode: ComponentMode = .dark
+    var width: CGFloat? = nil
+    
+    func makeBody(configuration: Configuration) -> some View {
+        let state: CTASolidButtonStyleConfig = configuration.isPressed ? .pressed(mode) : .normal(mode)
+        configuration.label
+            .frame(width: width)
+            .font(.medium.textXl)
+            .foregroundColor(state.foregroundColor)
+            .padding(.all, 16)
+            .background(state.backgroundColor)
+            .clipShape(Capsule())
+    }
+}
+
+enum CTAOutlineButtonStyleConfig {
+    case normal(ComponentMode)
+    case pressed(ComponentMode)
+    case disabled(ComponentMode)
+    
+    var backgroundColor: Color {
+        switch self {
+        case .normal(_), .pressed(_), .disabled(_):
+            return .clear
+        }
+    }
+    
+    var foregroundColor: Color {
+        switch self {
+        case .normal(let mode):
+            return mode == .dark ? .black : .white
+        case .pressed(_), .disabled(_):
+            return DesignSystem.gray500
+        }
+    }
+}
+
+struct CTAOutlineButtonStyle: ButtonStyle {
+    var mode: ComponentMode = .dark
+    var width: CGFloat? = nil
+    
+    func makeBody(configuration: Configuration) -> some View {
+        let state: CTAOutlineButtonStyleConfig = configuration.isPressed ? .pressed(mode) : .normal(mode)
+        configuration.label
+            .frame(width: width)
+            .font(.medium.textXl)
+            .foregroundColor(state.foregroundColor)
+            .padding(.all, 16)
+            .background(state.backgroundColor)
+            .overlay(
+                Capsule()
+                    .inset(by: 1)
+                    .stroke(state.foregroundColor, lineWidth: 1)
+            )
+            .clipShape(Capsule())
+    }
+}
+
 public struct CTAButton: View {
     
     let title: String
+    var width: CGFloat? = nil
     var handler: (() -> Void)?
     
     @State var isSelected: Bool = false
     
     public init(
         title: String,
+        width: CGFloat? = nil,
         handler: (() -> Void)? = nil
     ) {
+        self.width = width
         self.title = title
         self.handler = handler
     }
     
     public var body: some View {
-        HStack {
-          Spacer()
-            .frame(width: 20)
-          
-          HStack {
-            Spacer()
-            
+        Button {
+            handler?()
+        } label: {
             Text(title)
-                  .font(.system(size: 16, weight: .medium))
-                  .foregroundColor(.black)
-            
-            Spacer()
-          }
-          .frame(height: 56)
-          .background(DesignSystemAsset.gray200.swiftUIColor)
-          .clipShape(Capsule())
-          .gesture(
-            DragGesture(minimumDistance: 0)
-              .onChanged { _ in
-                isSelected = true
-              }
-              .onEnded { _ in
-                isSelected = false
-                handler?()
-              }
-          )
-          
-          Spacer()
-            .frame(width: 20)
         }
     }
 }
 
 struct CTAButton_Previews: PreviewProvider {
     static var previews: some View {
-        CTAButton(title: "버튼이요") {
+        CTAButton(title: "버튼이요", width: 150) {
             print("클릭이요")
         }
+        .buttonStyle(CTAOutlineButtonStyle(mode: .dark, width: 150))
     }
 }
