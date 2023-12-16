@@ -12,8 +12,14 @@ import DesignSystem
 
 struct ContentView: View {
     var body: some View {
-        CTAButton(title: "버튼이에요") {
-            print("버튼눌림")
+        VStack {
+            Text("오오")
+                .font(.bold.textLg)
+            Text("텍스트를 살펴보세요")
+                .font(.regular.displayLg)
+            CTAButton(title: "버튼이에요") {
+                print("버튼눌림")
+            }
         }
     }
 }

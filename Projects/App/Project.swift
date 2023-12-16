@@ -25,10 +25,6 @@ let project = Project.make(
               ]
              )
     ],
-    resourceSynthesizers: [
-      .custom(name: "Assets", parser: .assets, extensions: ["xcassets"]),
-      .fonts()
-    ],
     additionalFiles: [
       "./xcconfigs/NikeDesignSystemExample.shared.xcconfig"
     ]
