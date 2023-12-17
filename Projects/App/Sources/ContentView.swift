@@ -11,7 +11,7 @@ import DesignSystem
 
 
 struct ContentView: View {
-    
+    @State var isTextInputError: Bool = false
     @State var inputText: String = "" {
         didSet {
             print(inputText)
@@ -39,9 +39,16 @@ struct ContentView: View {
             StandAlongInputView(
                 textInput: $inputText,
                 placeHolder: "플레이스홀더",
-                errorMeeage: "에러에요"
+                errorMeeage: "에러에요",
+                isError: $isTextInputError
             )
             .frame(width: 250, height: 60)
+            
+            Button(action: {
+                isTextInputError.toggle()
+            }, label: {
+                Text("텍스트 인풋 에러 전환")
+            })
         }
     }
 }

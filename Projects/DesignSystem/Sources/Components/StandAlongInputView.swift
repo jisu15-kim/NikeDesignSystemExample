@@ -11,20 +11,24 @@ import SwiftUI
 public struct StandAlongInputView: View {
     
     @Binding public var textInput: String
-    @State public var isError: Bool = false
+    @Binding public var isError: Bool
     
     var placeHolder: String = ""
     var errorMeeage: String?
-    
+    var rightIconImage: Image?
     var mainColor: Color {
         return isError == true ? DesignSystem.error500 : DesignSystem.gray600
     }
     
     public init(textInput: Binding<String>,
-         placeHolder: String = "",
-         errorMeeage: String? = nil
+                rightIconImage: Image? = nil,
+                placeHolder: String = "",
+                errorMeeage: String? = nil,
+                isError: Binding<Bool> = .constant(false)
     ) {
         self._textInput = textInput
+        self._isError = isError
+        self.rightIconImage = rightIconImage
         self.errorMeeage = errorMeeage
         self.placeHolder = placeHolder
     }
@@ -36,9 +40,16 @@ public struct StandAlongInputView: View {
                     .frame(height: 6)
                 
                 ZStack {
-                    TextField(placeHolder, text: $textInput)
-                        .font(.regular.text2xl)
-                        .padding(.horizontal, 10)
+                    HStack {
+                        TextField(placeHolder, text: $textInput)
+                            .font(.regular.text2xl)
+                        
+                        if let rightIconImage {
+                            rightIconImage
+                        }
+                    }
+                    .padding(.horizontal, 10)
+                    .foregroundStyle(mainColor)
                 }
                 .frame(height: 56)
                 .overlay(
@@ -48,7 +59,7 @@ public struct StandAlongInputView: View {
                         .foregroundColor(.clear)
                     )
                 
-                if let errorMeeage {
+                if let errorMeeage, isError == true {
                     HStack {
                         Text(errorMeeage)
                             .font(.regular.textSm)
@@ -56,6 +67,11 @@ public struct StandAlongInputView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 10)
+                    .frame(height: 12)
+                } else {
+                    Spacer()
+                        .padding(.horizontal, 10)
+                        .frame(height: 12)
                 }
             }
             
@@ -65,7 +81,7 @@ public struct StandAlongInputView: View {
                         Text(placeHolder)
                             .padding(.horizontal, 2)
                             .font(.regular.textSm)
-                            .foregroundColor(DesignSystem.gray600)
+                            .foregroundColor(mainColor)
                             .frame(height: 12, alignment: .topLeading)
                             .background(Color.white)
                         Spacer()
@@ -73,25 +89,25 @@ public struct StandAlongInputView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 8)
-//                .frame(width: .infinity, height: .infinity, alignment: .topLeading)
             }
         }
     }
 }
 
 struct StandAlongInputView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        Text("")
-//        VStack(spacing: 20) {
-//            StandAlongInputView()
-//                .frame(width: 250, height: 60)
-//            
-//            StandAlongInputView(
-//                textInput: "안녕하신가",
-//                placeHolder: "플레이스홀더",
-//                errorMeeage: "에러에요"
-//            )
-//            .frame(width: 250, height: 60)
-//        }
+        
+        VStack(spacing: 24) {
+            
+            StandAlongInputView(
+                textInput: .constant("Value"),
+                rightIconImage: Image(systemName: "eye"),
+                placeHolder: "플레이스홀더",
+                errorMeeage: "에러에요",
+                isError: .constant(false)
+            )
+            .frame(width: 250, height: 60)
+        }
     }
 }
