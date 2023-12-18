@@ -11,6 +11,7 @@ import DesignSystem
 
 
 struct ContentView: View {
+    @State var isCheckBoxState: Bool = false
     @State var isTextInputError: Bool = false
     @State var inputText: String = "" {
         didSet {
@@ -49,6 +50,22 @@ struct ContentView: View {
             }, label: {
                 Text("텍스트 인풋 에러 전환")
             })
+            
+            HStack(spacing: 5) {
+                CheckBox(
+                    isSelect: $isCheckBoxState,
+                    style: .square,
+                    size: 16
+                )
+                Text("오늘 공부 하셨나요")
+                    .font(.regular.textMd)
+                    .foregroundStyle(
+                        isCheckBoxState ? .black : DesignSystem.gray600
+                    )
+                    .onTapGesture {
+                        isCheckBoxState.toggle()
+                    }
+            }
         }
     }
 }
