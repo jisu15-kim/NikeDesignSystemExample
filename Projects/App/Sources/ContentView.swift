@@ -36,6 +36,7 @@ struct ContentView: View {
                 Text("솔리드 버튼")
             })
             .buttonStyle(CTASolidButtonStyle(mode: .dark, width: 150))
+            .shadow(.xl_2)
             
             StandAlongInputView(
                 textInput: $inputText,
@@ -65,6 +66,19 @@ struct ContentView: View {
                     .onTapGesture {
                         isCheckBoxState.toggle()
                     }
+            }
+            HStack {
+                Rectangle()
+                    .frame(width: 100, height: 70)
+                    .shadow(.lg)
+                
+                Rectangle()
+                    .frame(width: 100, height: 70)
+                    .shadow(.sm)
+                
+                Rectangle()
+                    .frame(width: 100, height: 70)
+                    .shadow(.xl_2)
             }
         }
     }
