@@ -21,8 +21,12 @@ struct ContentView: View {
     
     var body: some View {
         
-        
         VStack(spacing: 24) {
+            
+            InfoBox(dataSource: InfoBoxDataModel.getMockup())
+                .frame(width: 350, height: 150)
+                .shadow(.md)
+            
             Button {
                 print("아웃라인 버튼")
             } label: {
