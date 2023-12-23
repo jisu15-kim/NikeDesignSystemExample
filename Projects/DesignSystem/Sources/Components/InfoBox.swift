@@ -46,7 +46,7 @@ public struct InfoBox: View {
                 ForEach(0..<dataSource.count, id: \.self) { index in
                     let data = dataSource[index]
                     ZStack {
-                        DesignSystem.gray100
+                        DesignSystem.Colors.gray100
                         HStack {
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(data.title)
@@ -74,7 +74,7 @@ public struct InfoBox: View {
                 ForEach(0..<dataSource.count, id: \.self) { index in
                     
                     let isCurrentPage = index == currentIndex
-                    let color: Color = isCurrentPage ? .black : DesignSystem.gray300
+                    let color: Color = isCurrentPage ? .black : DesignSystem.Colors.gray300
                     
                     ZStack(alignment: .bottom) {
                         Rectangle()

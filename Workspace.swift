@@ -9,13 +9,16 @@ let workspace = Workspace(
     projects: [
         "Projects/App",
         "Projects/Core",
-        "Projects/DesignSystem"
+        "Projects/DesignSystem",
+        "Projects/Scenes"
     ],
     schemes: [
         Scheme(
           name: "NikeDesignSystemExample",
           buildAction: .buildAction(
-            targets: [.project(path: "Projects/App", target: "App")]),
+            targets: [.project(path: "Projects/App", target: "App")
+            ]
+          ),
           runAction: .runAction(configuration: .debug),
           archiveAction: .archiveAction(configuration: .debug),
           profileAction: .profileAction(configuration: .debug),

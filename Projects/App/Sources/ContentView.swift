@@ -65,7 +65,7 @@ struct ContentView: View {
                 Text("오늘 공부 하셨나요")
                     .font(.regular.textMd)
                     .foregroundStyle(
-                        isCheckBoxState ? .black : DesignSystem.gray600
+                        isCheckBoxState ? .black : DesignSystem.Colors.gray600
                     )
                     .onTapGesture {
                         isCheckBoxState.toggle()

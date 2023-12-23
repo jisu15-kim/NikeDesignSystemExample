@@ -30,7 +30,7 @@ fileprivate enum CTASolidButtonStyleConfig {
         case .normal(let mode):
             return mode == .dark ? .white : .black
         case .pressed(_), .disabled(_):
-            return DesignSystem.gray400
+            return DesignSystem.Colors.gray400
         }
     }
 }
@@ -73,7 +73,7 @@ fileprivate enum CTAOutlineButtonStyleConfig {
         case .normal(let mode):
             return mode == .dark ? .black : .white
         case .pressed(_), .disabled(_):
-            return DesignSystem.gray500
+            return DesignSystem.Colors.gray500
         }
     }
 }

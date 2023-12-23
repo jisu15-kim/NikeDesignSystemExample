@@ -30,7 +30,7 @@ public struct CheckBox: View {
     }
     
     var mainColor: Color {
-        return isSelect ? .black : DesignSystem.gray400
+        return isSelect ? .black : DesignSystem.Colors.gray400
     }
     
     var backgroundColor: Color {

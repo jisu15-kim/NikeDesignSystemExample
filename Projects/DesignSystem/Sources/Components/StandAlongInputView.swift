@@ -17,7 +17,7 @@ public struct StandAlongInputView: View {
     var errorMeeage: String?
     var rightIconImage: Image?
     var mainColor: Color {
-        return isError == true ? DesignSystem.error500 : DesignSystem.gray600
+        return isError == true ? DesignSystem.Colors.error500 : DesignSystem.Colors.gray600
     }
     
     public init(textInput: Binding<String>,

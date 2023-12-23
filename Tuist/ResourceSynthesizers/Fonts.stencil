@@ -94,7 +94,7 @@ import SwiftUI
     }
     return Font(uiFont: font)
   }
-  {{accessModifier}} var sextXs: Font {
+  {{accessModifier}} var textXs: Font {
     guard let font = UIFont(font: self, size: 10) else {
       fatalError("Unable to initialize font name: '\(name)', family: \(family), size: 10")
     }

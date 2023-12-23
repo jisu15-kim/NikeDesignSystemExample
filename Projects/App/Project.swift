@@ -21,7 +21,9 @@ let project = Project.make(
                 .project(target: "Core",
                          path: .relativeToRoot("Projects/Core")),
                 .project(target: "DesignSystem",
-                         path: .relativeToRoot("Projects/DesignSystem"))
+                         path: .relativeToRoot("Projects/DesignSystem")),
+                .project(target: "Main",
+                         path: .relativeToRoot("Projects/Scenes"))
               ]
              )
     ],
