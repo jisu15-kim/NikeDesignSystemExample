@@ -18,6 +18,7 @@ public struct TabbarView: View {
     public var body: some View {
         TabView {
             Discover()
+                .padding(.all, 1)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
